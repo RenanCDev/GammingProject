@@ -1,75 +1,36 @@
-'use client';
+import Link from 'next/link';
 
-import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import useGames from '../hooks/useGames';
+export default async function Games({ searchParams }) {
+  const {
+    sName = 'need for speed',
+    sPlatform = '4',
+    // sDevelopers = '',
+    // sPublishers = '',
+    // sGenres = '',
+    // sTags = '',
+    // sCreators = '',
+    // sDates = '',
+    // // sOrdering = '',
+    // &platforms=${sPlatform}&page=1&developers=${sDevelopers}&publishers=${sPublishers}&genres=${sGenres}&tags=${sTags}&creators=${sCreators}&dates=${sDates}&ordering=${sOrdering}
+  } = searchParams;
+  
+  const apiKey = process.env.API_KEY
+  const res = await fetch(`https://api.rawg.io/api/games?key=${apiKey}&search=${sName}`);
 
-export default function GamesPage() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const [filters, setFilters] = useState({
-    sName: searchParams.get('sName') || '',
-    sDates: searchParams.get('sDates') || '1900,9999',
-    sOrdering: searchParams.get('sOrdering') || '',
-    sPage: searchParams.get('sPage') || 1,
-  });
-
-  const { games, loading, error } = useGames(filters);
-
-  const handleChange = (e) => {
-    setFilters((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const queryString = new URLSearchParams(filters).toString();
-    router.push(`?${queryString}`, { scroll: false });
-  };
+  if (!res.ok) {
+    return <div className="text-white text-center">Erro ao carregar os dados.</div>;
+  }
+  
+  const data = await res.json();
+  
+  if (!data.results || data.results.length === 0) {
+    return <div className="text-white text-center">Nenhum jogo encontrado.</div>;
+  }  
 
   return (
-    <div className="bg-gradient-to-b from-lightOpacityL to-lightOpacityS min-h-screen py-9 px-4">
-      <form onSubmit={handleSubmit} className="mb-6 p-6 bg-grayDarkOpacityS rounded-xl shadow-md">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <input
-            type="text"
-            name="sName"
-            value={filters.sName}
-            onChange={handleChange}
-            placeholder="Nome do Jogo"
-            className="p-2 rounded bg-grayDarkOpacityL text-white w-full"
-          />
-          <input
-            type="text"
-            name="sDates"
-            value={filters.sDates}
-            onChange={handleChange}
-            placeholder="Intervalo de Datas (YYYY-MM-DD,YYYY-MM-DD)"
-            className="p-2 rounded bg-grayDarkOpacityL text-white w-full"
-          />
-          <select
-            name="sOrdering"
-            value={filters.sOrdering}
-            onChange={handleChange}
-            className="p-2 rounded bg-grayDarkOpacityL text-white w-full"
-          >
-            <option value="">Ordenar Por</option>
-            <option value="name">Nome</option>
-            <option value="-name">Nome (Decrescente)</option>
-            <option value="released">Lançamento</option>
-            <option value="-released">Lançamento (Decrescente)</option>
-            <option value="rating">Avaliação</option>
-            <option value="-rating">Avaliação (Decrescente)</option>
-          </select>
-          <button type="submit" className="bg-grayMedium hover:bg-grayDark p-2 rounded text-white font-bold">
-            Pesquisar
-          </button>
-        </div>
-      </form>
-      {loading && <p className="text-white text-center">Carregando...</p>}
-      {error && <p className="text-red-500 text-center">Erro ao carregar dados.</p>}
+    <div className="bg-gradient-to-b from-lightOpacityL to-lightOpacityS min-h-screen py-9 px-4"> 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8  mx-2">
-        {games.map((game) => (
+        {data.results.map((game) => (
           <div
             key={game.id}
             className="bg-gradient-to-b from-grayDarkOpacityS to-grayDarkOpacityL rounded-3xl overflow-hidden shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl mb-5 mt-5"
