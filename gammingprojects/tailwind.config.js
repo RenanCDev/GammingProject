@@ -1,19 +1,46 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx}", // Certifique-se de que o caminho está correto para o seu projeto
+    "./app/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        black: '#000000',        // Preto: Para fundos principais do tema.
-        deepRed: '#8B0000',      // Vermelho Profundo: Para títulos importantes, botões chamativos ou alertas.
-        fireRed: '#FF4500',      // Vermelho Fogo: Destaques e estados de hover.
-        burntOrange: '#CC5500',  // Laranja Queimada: Elementos secundários ou detalhes visuais.
-        darkBrown: '#654321',    // Marrom Escuro: Bordas ou fundos de seções específicas.
-        chocolate: '#D2691E',    // Marrom Chocolate: Gradientes, cartões ou elementos menos prioritários.
+        dark: 'rgba(0, 0, 0, 1)',
+        light: 'rgba(255, 255, 255, 1)',
+        grayDark: 'rgba(51, 51, 51, 1)',
+        grayMedium: 'rgba(128, 128, 128, 1)',
+        grayLight: 'rgba(211, 211, 211, 1)',
+        beige: 'rgba(245, 245, 220, 1)',
+        taupe: 'rgba(72, 60, 50, 1)',
+        charcoal: 'rgba(54, 69, 79, 1)',
+
+        darkOpacityS: 'rgba(0, 0, 0, 0.3)',
+        darkOpacityMd: 'rgba(0, 0, 0, 0.5)',
+        darkOpacityL: 'rgba(0, 0, 0, 0.7)',
+        lightOpacityS: 'rgba(255, 255, 255, 0.3)',
+        lightOpacityMd: 'rgba(255, 255, 255, 0.5)',
+        lightOpacityL: 'rgba(255, 255, 255, 0.7)',
+        grayDarkOpacityS: 'rgba(51, 51, 51, 0.3)',
+        grayDarkOpacityMd: 'rgba(51, 51, 51, 0.5)',
+        grayDarkOpacityL: 'rgba(51, 51, 51, 0.7)',
+        grayMediumOpacityS: 'rgba(128, 128, 128, 0.3)',
+        grayMediumOpacityMd: 'rgba(128, 128, 128, 0.5)',
+        grayMediumOpacityL: 'rgba(128, 128, 128, 0.7)',
+        grayLightOpacityS: 'rgba(211, 211, 211, 0.3)',
+        grayLightOpacityMd: 'rgba(211, 211, 211, 0.5)',
+        grayLightOpacityL: 'rgba(211, 211, 211, 0.7)',
+        beigeOpacityS: 'rgba(245, 245, 220, 0.3)',
+        beigeOpacityMd: 'rgba(245, 245, 220, 0.5)',
+        beigeOpacityL: 'rgba(245, 245, 220, 0.7)',
+        taupeOpacityS: 'rgba(72, 60, 50, 0.3)',
+        taupeOpacityMd: 'rgba(72, 60, 50, 0.5)',
+        taupeOpacityL: 'rgba(72, 60, 50, 0.7)',
+        charcoalOpacityS: 'rgba(54, 69, 79, 0.3)',
+        charcoalOpacityMd: 'rgba(54, 69, 79, 0.5)',
+        charcoalOpacityL: 'rgba(54, 69, 79, 0.7)',
       },
     },
   },
   plugins: [],
-}
+};
