@@ -143,13 +143,7 @@ export default function GamesPage() {
                 style={{ backgroundImage: `url(${game.background_image})` }}
               ></div>
               <div className="p-6 space-y-4">
-                <h2 className="text-3xl font-bold text-white text-center truncate">{game.name}</h2>
-                <p className="text-white text-lg text-center font-bold">
-                  Lançamento:
-                  <span className="block mt-1 text-2xl font-semibold text-grayLight">
-                    {game.released || 'Não disponível'}
-                  </span>
-                </p>
+                <h2 className="text-3xl font-bold text-white text-center truncate pb-5">{game.name}</h2>
                 <Link href={`/games/${game.id}`}>
                   <button className="bg-grayMedium hover:bg-grayDark p-2 rounded text-white font-bold w-full">
                     Ver Detalhes
