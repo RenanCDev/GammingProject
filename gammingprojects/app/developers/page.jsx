@@ -1,8 +1,18 @@
 import Link from 'next/link';
 
 export default async function Developers() {
-    const res = await fetch(`https://api.rawg.io/api/developers?key=931f29a2e2594596ae17eff8a97ef3f4&page=1`);
-    const data = await res.json();
+  const apiKey = process.env.API_KEY
+  const res = await fetch(`https://api.rawg.io/api/developers?key=${apiKey}`);
+
+  if (!res.ok) {
+    return <div className="text-white text-center">Erro ao carregar os dados.</div>;
+  }
+  
+  const data = await res.json();
+  
+  if (!data.results || data.results.length === 0) {
+    return <div className="text-white text-center">Nenhum jogo encontrado.</div>;
+  }  
   
     return (
       <div className="bg-gradient-to-b from-lightOpacityL to-lightOpacityS min-h-screen py-9 px-4">

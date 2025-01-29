@@ -1,11 +1,34 @@
 import Link from 'next/link';
 
-export default async function Games() {
-  const res = await fetch(`https://api.rawg.io/api/games?key=931f29a2e2594596ae17eff8a97ef3f4&page=1`);
+export default async function Games({ searchParams }) {
+  const {
+    sName = 'need for speed',
+    sPlatform = '4',
+    // sDevelopers = '',
+    // sPublishers = '',
+    // sGenres = '',
+    // sTags = '',
+    // sCreators = '',
+    // sDates = '',
+    // // sOrdering = '',
+    // &platforms=${sPlatform}&page=1&developers=${sDevelopers}&publishers=${sPublishers}&genres=${sGenres}&tags=${sTags}&creators=${sCreators}&dates=${sDates}&ordering=${sOrdering}
+  } = searchParams;
+  
+  const apiKey = process.env.API_KEY
+  const res = await fetch(`https://api.rawg.io/api/games?key=${apiKey}&search=${sName}`);
+
+  if (!res.ok) {
+    return <div className="text-white text-center">Erro ao carregar os dados.</div>;
+  }
+  
   const data = await res.json();
+  
+  if (!data.results || data.results.length === 0) {
+    return <div className="text-white text-center">Nenhum jogo encontrado.</div>;
+  }  
 
   return (
-    <div className="bg-gradient-to-b from-lightOpacityL to-lightOpacityS min-h-screen py-9 px-4">
+    <div className="bg-gradient-to-b from-lightOpacityL to-lightOpacityS min-h-screen py-9 px-4"> 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8  mx-2">
         {data.results.map((game) => (
           <div
@@ -34,14 +57,15 @@ export default async function Games() {
                 <div>
                   <h3 className="text-white text-xl font-bold mb-2 text-center">Plataformas:</h3>
                   <ul className="space-y-1 text-center">
-                    {game.platforms?.map(({ platform }) => (
-                      <li
-                        key={platform.id}
-                        className="text-lg text-grayLight font-semibold truncate"
-                      >
-                        {platform.name}
-                      </li>
-                    )) || <li className="text-lg text-grayLight font-semibold">Não disponível</li>}
+                    {game.platforms?.length > 0 ? (
+                      game.platforms.map(({ platform }) => (
+                        <li key={platform.id} className="text-lg text-grayLight font-semibold truncate">
+                          {platform.name}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="text-lg text-grayLight font-semibold">Não disponível</li>
+                    )}
                   </ul>
                 </div>
                 <div>
