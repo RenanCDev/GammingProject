@@ -2,20 +2,25 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import useGames from '../hooks/useGames';
+import useGames from '../../hooks/useGames';
 
 export default function GamesPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [filters, setFilters] = useState({
+  const initialFilters = {
     sName: searchParams.get('sName') || '',
     sDates: searchParams.get('sDates') || '1900,9999',
     sOrdering: searchParams.get('sOrdering') || '',
     sPage: searchParams.get('sPage') || 1,
-  });
+  };
 
+  const [filters, setFilters] = useState(initialFilters);
   const { games, loading, error } = useGames(filters);
+
+  useEffect(() => {
+    setFilters(initialFilters);
+  }, [searchParams]);
 
   const handleChange = (e) => {
     setFilters((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -26,7 +31,7 @@ export default function GamesPage() {
     const queryString = new URLSearchParams(filters).toString();
     router.push(`?${queryString}`, { scroll: false });
   };
-
+  
   return (
     <div className="bg-gradient-to-b from-lightOpacityL to-lightOpacityS min-h-screen py-9 px-4">
       <form onSubmit={handleSubmit} className="mb-6 p-6 bg-grayDarkOpacityS rounded-xl shadow-md">
@@ -68,7 +73,7 @@ export default function GamesPage() {
       </form>
       {loading && <p className="text-white text-center">Carregando...</p>}
       {error && <p className="text-red-500 text-center">Erro ao carregar dados.</p>}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8  mx-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mx-2">
         {games.map((game) => (
           <div
             key={game.id}
