@@ -10,7 +10,7 @@ export default function Footer() {
           <span>
             <Link
               href="https://github.com/RenanCDev"
-              className="text-grayLight hover:text-white hover:underline hover:scale-105 transition-all duration-300 mr-1 font-bold"
+              className="text-grayLight hover:text-white hover:underline hover:scale-105 transition-all duration-300 m-1 font-bold"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -19,11 +19,20 @@ export default function Footer() {
             <span className="text-grayMedium">-</span>
             <Link
               href="https://github.com/luizmiguel4444"
-              className="text-grayLight hover:text-white hover:underline hover:scale-105 transition-all duration-300 ml-1 font-bold"
+              className="text-grayLight hover:text-white hover:underline hover:scale-105 transition-all duration-300 m-1 font-bold"
               target="_blank"
               rel="noopener noreferrer"
             >
               Luiz Miguel
+            </Link>
+            <span className="text-grayMedium">-</span>
+            <Link
+              href="https://github.com/Simio123"
+              className="text-grayLight hover:text-white hover:underline hover:scale-105 transition-all duration-300 m-1 font-bold"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Emerson Santos
             </Link>
             .
           </span>

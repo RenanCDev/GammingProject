@@ -54,3 +54,4 @@ export default function useGames(filters) {
 
   return { games, loading, error };
 }
+
