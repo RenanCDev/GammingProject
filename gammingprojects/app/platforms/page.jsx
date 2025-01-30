@@ -5,13 +5,13 @@ export default async function Platforms() {
   const res = await fetch(`https://api.rawg.io/api/platforms?key=${apiKey}`);
 
   if (!res.ok) {
-    return <div className="text-white text-center">Erro ao carregar os dados.</div>;
+    return <div className="text-white text-center">Error loading data.</div>;
   }
   
   const data = await res.json();
   
   if (!data.results || data.results.length === 0) {
-    return <div className="text-white text-center">Nenhum jogo encontrado.</div>;
+    return <div className="text-white text-center">No games found.</div>;
   }  
 
   return (

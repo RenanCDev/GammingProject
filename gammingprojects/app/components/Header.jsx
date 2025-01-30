@@ -23,7 +23,6 @@ export default function Header() {
                 className="font-bold text-grayLight hover:text-white 
                            transform hover:translate-y-0.5 transition-all duration-500
                            hover:shadow-lg hover:shadow-gray-500
-                           hover:border hover:border-gray-500
                            rounded-lg px-2 py-1"
               >
                 {label}
