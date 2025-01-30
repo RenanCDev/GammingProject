@@ -6,7 +6,7 @@ export default function Footer() {
     return (
       <footer className="bg-grayDark text-center text-sm text-grayMedium py-2 mt-auto">
         <p className="text-grayMedium">
-          © {currentYear} MortyVerse. Developed and created <p>by</p>{" "}
+          © {currentYear} MorphGames MG. <p>Developed and created by</p>{" "}
           <span>
             <Link
               href="https://github.com/RenanCDev"
